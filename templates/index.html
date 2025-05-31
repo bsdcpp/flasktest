@@ -1,4 +1,8 @@
 {% extends 'base.html' %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css">
+{% endblock %}
 
 {% block content %}
 <p>{{ movies|length }} Titles</p>

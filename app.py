@@ -25,6 +25,13 @@ movies = [
     {'title': 'The Pork of Music', 'year': '2012'},
 ]
 
+@app.context_processor
+def make_context():
+    return dict(user=user, movies=movies, current_user=current_user)
+@app.errorhandler(404)  # 传入要处理的错误代码
+def page_not_found(e):  # 接受异常对象作为参数
+    user = User.query.first()
+    return render_template('404.html'), 404  # 返回模板和状态码
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user['is_authenticated']:
@@ -33,7 +40,7 @@ def login():
         return 'no'
 @app.route('/')
 def index():
-    return render_template('index.html', current_user=current_user, user=user, name=name, movies=movies)
+    return render_template('index.html', name=name)
 @app.route('/hello')
 def hello():
     return 'Hello'
@@ -94,6 +101,8 @@ class Movie(db.Model):  # 表名将会是 movie
     id = db.Column(db.Integer, primary_key=True)  # 主键
     title = db.Column(db.String(60))  # 电影标题
     year = db.Column(db.String(4))  # 电影年份
+
+
 with app.app_context():
         db.drop_all()
         db.create_all()
@@ -121,10 +130,10 @@ with app.app_context():
             if i % 4:
                 m.draft = True
             db.session.add(m)
-        user = User(name="jervis")
+        userx = User(name="jervis")
         m1 = Movie(title='My Neighbor', year='1989')
         m2 = Movie(title='Dead Poets Society', year='1990')
-        db.session.add(user)
+        db.session.add(userx)
         db.session.add(m1)
         db.session.add(m2)
 
@@ -140,5 +149,4 @@ def test_icons():
     page = request.args.get('page', 1, type=int)
     pagination = Message.query.paginate(page=page, per_page=10)
     messages = pagination.items
-    return render_template('icons.html', pagination=pagination, messages=messages,
-                           current_user=current_user, user=user)
+    return render_template('icons.html', pagination=pagination, messages=messages)
