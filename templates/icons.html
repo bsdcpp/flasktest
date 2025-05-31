@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% from 'bootstrap5/utils.html' import render_icon %}
+{% from 'bootstrap5/pagination.html' import render_pager, render_pagination %}
+<!-- DO NOT EDIT! Use update_icons.py for updating this file. -->
+
+{% block content %}
+<h2>Icons</h2>
+<p>These are all the icons currently supported by Bootstrap-Flask.</p>
+<ul class="row row-cols-3 row-cols-sm-4 row-cols-lg-6 row-cols-xl-8 list-unstyled list">
+<li class="col mb-4">
+<a class="d-block text-dark text-body-emphasis text-decoration-none" href="https://icons.getbootstrap.com/icons/0-circle/">
+<div class="px-3 py-4 mb-2 bg-light text-center rounded">
+{{ render_icon('0-circle', 32) }}
+</div>
+</a>
+<div class="name text-body-secondary text-decoration-none text-center pt-1">0-circle</div>
+</li>
+    <li class="col mb-4">
+<a class="d-block text-dark text-body-emphasis text-decoration-none" href="https://icons.getbootstrap.com/icons/youtube/">
+<div class="px-3 py-4 mb-2 bg-light text-center rounded">
+{{ render_icon('youtube', 32) }}
+</div>
+</a>
+<div class="name text-body-secondary text-decoration-none text-center pt-1">youtube</div>
+</li>
+</ul>
+<p>This is a total of 2050 icons.</p>
+
+<h2>Messages</h2>
+{% for message in messages %}
+    Message: {{ message.id }}<br>
+{% endfor %}
+
+<h2>Render a simple pagination component with render_pager</h2>
+<pre>{% raw %}{{ render_pager(pagination) }}{% endraw %}</pre>
+{{ render_pager(pagination) }}
+
+<h2>Render a standard pagination component with render_pagination</h2>
+<pre>{% raw %}{{ render_pagination(pagination) }}{% endraw %}</pre>
+{{ render_pagination(pagination) }}
+{% endblock %}

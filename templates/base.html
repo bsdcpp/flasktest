@@ -7,6 +7,25 @@
     <title>{{ user.name }}'s Watchlist</title>
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css">
+
+     {% block styles %}
+            <!-- Bootstrap CSS -->
+            {{ bootstrap.load_css() }}
+            {{ bootstrap.load_icon_font_css() }}
+    <style>
+        pre {
+            background: #ddd;
+            padding: 10px;
+        }
+        h2 {
+            margin-top: 20px;
+        }
+        footer {
+            margin: 20px;
+        }
+    </style>
+    {% endblock %}
+
     {% endblock %}
 </head>
 <body>
@@ -32,5 +51,10 @@
     <footer>
         <small>&copy; 2018 <a href="https://helloflask.com/book/3">HelloFlask</a></small>
 	</footer>
+
+            {% block scripts %}
+            <!-- Optional JavaScript -->
+            {{ bootstrap.load_js() }}
+        {% endblock %}
 </body>
 </html>
