@@ -3,6 +3,8 @@ from markupsafe import escape
 
 app = Flask(__name__)
 # ...
+current_user ={'is_authenticated': False}
+user = {'name': 'jervis'}
 name = 'Grey Li'
 movies = [
     {'title': 'My Neighbor Totoro', 'year': '1988'},
@@ -17,9 +19,15 @@ movies = [
     {'title': 'The Pork of Music', 'year': '2012'},
 ]
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if current_user['is_authenticated']:
+        return 'hello'
+    else:
+        return 'no'
 @app.route('/')
 def index():
-    return render_template('index.html', name=name, movies=movies)
+    return render_template('index.html', current_user=current_user, user=user, name=name, movies=movies)
 @app.route('/hello')
 def hello():
     return 'Hello'
